@@ -15,13 +15,6 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('wisatas.index') }}" class="nav-link {{ Request::is('wisatas*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Wisatas</p>
-    </a>
-</li>
-
-<li class="nav-item">
     <a href="{{ route('hotels.index') }}" class="nav-link {{ Request::is('hotels*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Hotels</p>
@@ -42,9 +35,24 @@
     </a>
 </li>
 
+
+<li class="nav-item">
+    <a href="{{ route('wisatas.index') }}" class="nav-link {{ Request::is('wisatas*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Wisatas</p>
+    </a>
+</li>
+
 <li class="nav-item">
     <a href="{{ route('wisataDatas.index') }}" class="nav-link {{ Request::is('wisataDatas*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Wisata Datas</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('wisataKandidats.index') }}" class="nav-link {{ Request::is('wisataKandidats*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Wisata Kandidats</p>
     </a>
 </li>

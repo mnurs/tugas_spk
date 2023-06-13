@@ -27,4 +27,5 @@ Route::resource('wisatas', App\Http\Controllers\WisataController::class);
 Route::resource('hotels', App\Http\Controllers\HotelController::class);
 Route::resource('hotelDatas', App\Http\Controllers\HotelDataController::class);
 Route::resource('hotelKandidats', App\Http\Controllers\HotelKandidatController::class);
-Route::resource('wisata-datas', App\Http\Controllers\WisataDataController::class);
+Route::resource('wisataDatas', App\Http\Controllers\WisataDataController::class);
+Route::resource('wisataKandidats', App\Http\Controllers\WisataKandidatController::class);

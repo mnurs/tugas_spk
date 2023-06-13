@@ -38,3 +38,6 @@ Route::resource('hotel-kandidats', App\Http\Controllers\API\HotelKandidatAPICont
 
 Route::resource('wisata-datas', App\Http\Controllers\API\WisataDataAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('wisata-kandidats', App\Http\Controllers\API\WisataKandidatAPIController::class)
+    ->except(['create', 'edit']);

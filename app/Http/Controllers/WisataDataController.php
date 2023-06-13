@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\WisataDataRepository;
 use Illuminate\Http\Request;
 use Flash;
+use App\DataTables\WisataDataDataTable;
 
 class WisataDataController extends AppBaseController
 {
@@ -21,13 +22,10 @@ class WisataDataController extends AppBaseController
 
     /**
      * Display a listing of the WisataData.
-     */
-    public function index(Request $request)
+     */ 
+    public function index(WisataDataDataTable $dataTable)
     {
-        $wisataDatas = $this->wisataDataRepository->paginate(10);
-
-        return view('wisata_datas.index')
-            ->with('wisataDatas', $wisataDatas);
+        return $dataTable->render('wisata_datas.index');
     }
 
     /**

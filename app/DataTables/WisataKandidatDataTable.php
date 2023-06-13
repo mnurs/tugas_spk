@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\WisataData;
+use App\Models\WisataKandidat;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 
-class WisataDataDataTable extends DataTable
+class WisataKandidatDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,20 +23,20 @@ class WisataDataDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable->addColumn('action', 'wisata_datas.datatables_actions');
+        return $dataTable->addColumn('action', 'wisata_kandidats.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\WisataDatum $model
+     * @param \App\Models\WisataKandidat $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(WisataData $model): QueryBuilder
+    public function query(WisataKandidat $model): QueryBuilder
     {
-        $data = WisataData::
-                select('wisata_data.id','wisata_data.fasilitas','wisata_data.aksesibilitas','wisata_data.biaya','wisata_data.aktifitas','wisata_data.kunjungan', 'wisata.nama as wisata_nama')->
-                leftjoin('wisata', 'wisata.id', 'wisata_data.id_wisata');
+        $data = WisataKandidat::
+                select('wisata_kandidat.id','wisata_kandidat.fasilitas','wisata_kandidat.aksesibilitas','wisata_kandidat.biaya','wisata_kandidat.aktifitas','wisata_kandidat.kunjungan', 'wisata.nama as wisata_nama')->
+                leftjoin('wisata', 'wisata.id', 'wisata_kandidat.id_wisata');
          return $this->applyScopes($data);  
     }
 
@@ -48,7 +48,7 @@ class WisataDataDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('wisatadata-table')
+                    ->setTableId('wisatakandidat-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -73,12 +73,12 @@ class WisataDataDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-           'wisata' => ['name' => 'wisata.nama', 'data' => 'wisata_nama', 'title' => 'Wisata'],
-           'fasilitas' => ['name' => 'wisata_data.fasilitas', 'data' => 'fasilitas', 'title' => 'Fasilitas'],
-           'aksesibilitas' => ['name' => 'wisata_data.aksesibilitas', 'data' => 'aksesibilitas', 'title' => 'Aksesibilitas'],
-           'biaya' => ['name' => 'wisata_data.biaya', 'data' => 'biaya', 'title' => 'Biaya'],
-           'aktifitas' => ['name' => 'wisata_data.aktifitas', 'data' => 'aktifitas', 'title' => 'Aktifitas'],
-           'kunjungan' => ['name' => 'wisata_data.kunjungan', 'data' => 'kunjungan', 'title' => 'Kunjungan'],
+            'wisata' => ['name' => 'wisata.nama', 'data' => 'wisata_nama', 'title' => 'Wisata'],
+           'fasilitas' => ['name' => 'wisata_kandidat.fasilitas', 'data' => 'fasilitas', 'title' => 'Fasilitas'],
+           'aksesibilitas' => ['name' => 'wisata_kandidat.aksesibilitas', 'data' => 'aksesibilitas', 'title' => 'Aksesibilitas'],
+           'biaya' => ['name' => 'wisata_kandidat.biaya', 'data' => 'biaya', 'title' => 'Biaya'],
+           'aktifitas' => ['name' => 'wisata_kandidat.aktifitas', 'data' => 'aktifitas', 'title' => 'Aktifitas'],
+           'kunjungan' => ['name' => 'wisata_kandidat.kunjungan', 'data' => 'kunjungan', 'title' => 'Kunjungan'],
             
             Column::computed('action')
                   ->exportable(false)
@@ -95,6 +95,6 @@ class WisataDataDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'WisataData_' . date('YmdHis');
+        return 'WisataKandidat_' . date('YmdHis');
     }
 }
