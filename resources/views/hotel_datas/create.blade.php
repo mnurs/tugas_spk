@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Hotel Datas
+                    Create Hotel Data
                     </h1>
                 </div>
             </div>
