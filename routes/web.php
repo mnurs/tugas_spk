@@ -21,3 +21,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+
+Route::resource('bobots', App\Http\Controllers\BobotController::class);
