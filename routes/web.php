@@ -26,3 +26,5 @@ Route::resource('bobots', App\Http\Controllers\BobotController::class);
 Route::resource('wisatas', App\Http\Controllers\WisataController::class);
 Route::resource('hotels', App\Http\Controllers\HotelController::class);
 Route::resource('hotelDatas', App\Http\Controllers\HotelDataController::class);
+Route::resource('hotelKandidats', App\Http\Controllers\HotelKandidatController::class);
+Route::resource('wisata-datas', App\Http\Controllers\WisataDataController::class);
