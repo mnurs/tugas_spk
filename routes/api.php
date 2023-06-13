@@ -23,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('bobots', App\Http\Controllers\API\BobotAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('wisatas', App\Http\Controllers\API\WisataAPIController::class)
+    ->except(['create', 'edit']);

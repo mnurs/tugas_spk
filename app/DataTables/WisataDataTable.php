@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Bobot;
+use App\Models\Wisata;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 
-class BobotDataTable extends DataTable
+class WisataDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,16 +23,16 @@ class BobotDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable->addColumn('action', 'bobots.datatables_actions');
+        return $dataTable->addColumn('action', 'wisatas.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Bobot $model
+     * @param \App\Models\Wisatum $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Bobot $model): QueryBuilder
+    public function query(Wisata $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -45,7 +45,7 @@ class BobotDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('bobot-table')
+                    ->setTableId('wisata-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -70,10 +70,7 @@ class BobotDataTable extends DataTable
     public function getColumns(): array
     {
         return [ 
-            Column::make('nilai'), 
-            Column::make('attribut'), 
-            Column::make('is_benefit'), 
-            Column::make('kategori'), 
+            Column::make('nama'),  
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
@@ -89,6 +86,6 @@ class BobotDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Bobot_' . date('YmdHis');
+        return 'Wisata_' . date('YmdHis');
     }
 }

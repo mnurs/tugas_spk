@@ -23,3 +23,4 @@ Auth::routes();
 
 
 Route::resource('bobots', App\Http\Controllers\BobotController::class);
+Route::resource('wisatas', App\Http\Controllers\WisataController::class);

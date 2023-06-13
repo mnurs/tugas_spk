@@ -13,3 +13,10 @@
         <p>Bobots</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('wisatas.index') }}" class="nav-link {{ Request::is('wisatas*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Wisatas</p>
+    </a>
+</li>
