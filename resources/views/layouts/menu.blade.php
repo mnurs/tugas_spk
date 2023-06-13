@@ -27,3 +27,10 @@
         <p>Hotels</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('hotelDatas.index') }}" class="nav-link {{ Request::is('hotelDatas*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Hotel Datas</p>
+    </a>
+</li>

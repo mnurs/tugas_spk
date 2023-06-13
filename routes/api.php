@@ -29,3 +29,6 @@ Route::resource('wisatas', App\Http\Controllers\API\WisataAPIController::class)
 
 Route::resource('hotels', App\Http\Controllers\API\HotelAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('hotel-datas', App\Http\Controllers\API\HotelDataAPIController::class)
+    ->except(['create', 'edit']);

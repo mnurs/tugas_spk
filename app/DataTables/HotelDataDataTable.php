@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Hotel;
+use App\Models\HotelData;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 
-class HotelDataTable extends DataTable
+class HotelDataDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,23 +23,23 @@ class HotelDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable->addColumn('action', 'hotels.datatables_actions');
+        return $dataTable->addColumn('action', 'hotel_datas.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Hotel $model
+     * @param \App\Models\HotelDatum $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Hotel $model): QueryBuilder
+    public function query(HotelData $model): QueryBuilder
     {
-        $data = Hotel::
-                select('hotel.id','hotel.nama', 'wisata.nama as wisata_nama')->
+        $data = HotelData::
+                select('hotel_data.id','hotel.nama as hotel_nama', 'wisata.nama as wisata_nama','hotel_data.harga','hotel_data.fasilitas','hotel_data.kelas','hotel_data.jarak')->
+                leftjoin('hotel', 'hotel.id', 'hotel_data.id_hotel')->
                 leftjoin('wisata', 'wisata.id', 'hotel.id_wisata');
 
         return $this->applyScopes($data);  
-        // return $model->newQuery();
     }
 
     /**
@@ -50,7 +50,7 @@ class HotelDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('hotel-table')
+                    ->setTableId('hoteldata-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -75,10 +75,12 @@ class HotelDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            // Column::make('id'), 
             'wisata' => ['name' => 'wisata.nama', 'data' => 'wisata_nama', 'title' => 'Wisata'],
-            'hotel' => ['name' => 'hotel.nama', 'data' => 'nama', 'title' => 'Hotel'],
-            
+            'hotel' => ['name' => 'hotel.nama', 'data' => 'hotel_nama', 'title' => 'Hotel'],
+            'harga' => ['name' => 'hotel_data.harga', 'data' => 'harga', 'title' => 'Harga'],
+            'fasilitas' => ['name' => 'hotel_data.fasilitas', 'data' => 'fasilitas', 'title' => 'Fasilitas'],
+            'kelas' => ['name' => 'hotel_data.kelas', 'data' => 'kelas', 'title' => 'Kelas'],
+            'jarak' => ['name' => 'hotel_data.jarak', 'data' => 'jarak', 'title' => 'Jarak'], 
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
@@ -94,6 +96,6 @@ class HotelDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Hotel_' . date('YmdHis');
+        return 'HotelData_' . date('YmdHis');
     }
 }
