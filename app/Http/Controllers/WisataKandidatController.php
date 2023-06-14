@@ -9,6 +9,7 @@ use App\Repositories\WisataKandidatRepository;
 use Illuminate\Http\Request;
 use Flash;
 use App\DataTables\WisataKandidatDataTable;
+use App\Models\{WisataData,WisataKandidat};
 
 class WisataKandidatController extends AppBaseController
 {
@@ -48,6 +49,48 @@ class WisataKandidatController extends AppBaseController
         Flash::success('Wisata Kandidat saved successfully.');
 
         return redirect(route('wisataKandidats.index'));
+    }
+
+     /**
+     * Store a newly created HotelKandidat in storage.
+     */
+    public function generateAsumsi(Request $request)
+    {
+        $input = $request->all();
+
+        $WisataData = WisataData::all();
+        $maxData = WisataData::selectRaw("MAX(CHAR_LENGTH(fasilitas) - CHAR_LENGTH(REPLACE(fasilitas, ',', ''))) jumlah_fasilitas, MAX(CHAR_LENGTH(aksesibilitas) - CHAR_LENGTH(REPLACE(aksesibilitas, ',', ''))) jumlah_aksesibilitas, MAX(CHAR_LENGTH(aktifitas) - CHAR_LENGTH(REPLACE(aktifitas, ',', ''))) jumlah_aktifitas")->first(); 
+        foreach ($WisataData as $key => $data) {
+            $cekData = WisataKandidat::where('id_wisata',$data->id_wisata)->first();
+            $curData = WisataData::selectRaw("MAX(CHAR_LENGTH(fasilitas) - CHAR_LENGTH(REPLACE(fasilitas, ',', ''))) jumlah_fasilitas, MAX(CHAR_LENGTH(aksesibilitas) - CHAR_LENGTH(REPLACE(aksesibilitas, ',', ''))) jumlah_aksesibilitas, MAX(CHAR_LENGTH(aktifitas) - CHAR_LENGTH(REPLACE(aktifitas, ',', ''))) jumlah_aktifitas")->where('id_wisata',$data->id_wisata)->first(); 
+            $hasilFasilitas = (($curData->jumlah_fasilitas + 1) / ($maxData->jumlah_fasilitas + 1));
+            $hasilAksesbilitas = (($curData->jumlah_aksesibilitas + 1) / ($maxData->jumlah_aksesibilitas + 1));
+            $hasilAktifitas = (($curData->jumlah_aktifitas + 1) / ($maxData->jumlah_aktifitas + 1));
+            if(empty($cekData)){
+                $wisataKandidat = $this->wisataKandidatRepository->create([
+                    'id_wisata'=>$data->id_wisata,
+                    'fasilitas'=> number_format($hasilFasilitas,1),
+                    'aksesibilitas'=>number_format($hasilAksesbilitas,1),
+                    'biaya'=>$data->biaya,
+                    'aktifitas'=>number_format($hasilAktifitas,1),
+                    'kunjungan'=>$data->kunjungan
+                ]);
+            }else{
+                WisataKandidat::where('id_wisata',$data->id_wisata)->update([
+                    'id_wisata'=>$data->id_wisata,
+                    'fasilitas'=> number_format($hasilFasilitas,1),
+                    'aksesibilitas'=>number_format($hasilAksesbilitas,1),
+                    'biaya'=>$data->biaya,
+                    'aktifitas'=>number_format($hasilAktifitas,1),
+                    'kunjungan'=>$data->kunjungan
+                ]);
+            }
+        } 
+
+        Flash::success('Wisata Kandidat saved successfully.');
+
+        return redirect(route('wisataKandidats.index'));
+        // return $maxFasilitas;
     }
 
     /**

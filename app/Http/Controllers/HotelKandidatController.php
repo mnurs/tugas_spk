@@ -9,6 +9,7 @@ use App\Repositories\HotelKandidatRepository;
 use Illuminate\Http\Request;
 use Flash;
 use App\DataTables\HotelKandidatDataTable;
+use App\Models\{HotelData,HotelKandidat};
 
 class HotelKandidatController extends AppBaseController
 {
@@ -48,6 +49,45 @@ class HotelKandidatController extends AppBaseController
         Flash::success('Hotel Kandidat saved successfully.');
 
         return redirect(route('hotelKandidats.index'));
+    }
+
+
+    /**
+     * Store a newly created HotelKandidat in storage.
+     */
+    public function generateAsumsi(Request $request)
+    {
+        $input = $request->all();
+
+        $HotelData = HotelData::all();
+        $maxFasilitas = HotelData::selectRaw("MAX(CHAR_LENGTH(fasilitas) - CHAR_LENGTH(REPLACE(fasilitas, ',', ''))) jumlah_fasilitas")->first(); 
+        foreach ($HotelData as $key => $data) {
+            $cekData = HotelKandidat::where('id_hotel',$data->id_hotel)->first();
+            $curFasilitas = HotelData::selectRaw("MAX(CHAR_LENGTH(fasilitas) - CHAR_LENGTH(REPLACE(fasilitas, ',', ''))) jumlah_fasilitas")->where('id_hotel',$data->id_hotel)->first(); 
+            $hasilFasilitas = (($curFasilitas->jumlah_fasilitas + 1) / ($maxFasilitas->jumlah_fasilitas + 1));
+            if(empty($cekData)){
+                $hotelKandidat = $this->hotelKandidatRepository->create([
+                    'id_hotel'=>$data->id_hotel,
+                    'harga'=>$data->harga,
+                    'fasilitas'=> number_format($hasilFasilitas,1),
+                    'kelas'=>$data->kelas,
+                    'jarak'=>$data->jarak
+                ]);
+            }else{
+                HotelKandidat::where('id_hotel',$data->id_hotel)->update([
+                    'id_hotel'=>$data->id_hotel,
+                    'harga'=>$data->harga,
+                    'fasilitas'=> number_format($hasilFasilitas,1),
+                    'kelas'=>$data->kelas,
+                    'jarak'=>$data->jarak
+                ]);
+            }
+        } 
+
+        Flash::success('Hotel Kandidat saved successfully.');
+
+        return redirect(route('hotelKandidats.index'));
+        // return $maxFasilitas;
     }
 
     /**

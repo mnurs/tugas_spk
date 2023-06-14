@@ -8,6 +8,16 @@
                     <h1>Wisata Kandidat</h1>
                 </div>
                 <div class="col-sm-6">
+                    {!! Form::open(['url' => ['wisataKandidat/asumsi'], 'method' => 'post']) !!}
+                        <div class='float-right'> 
+                            {!! Form::button('Hitung', [
+                                'type' => 'submit',
+                                'class' => 'btn btn-primary float-right',
+                                'onclick' => 'return confirm("Kamu yakin?")'
+
+                            ]) !!}
+                        </div>
+                    {!! Form::close() !!}
                     <a class="btn btn-primary float-right"
                        href="{{ route('wisataKandidats.create') }}">
                         Add New
