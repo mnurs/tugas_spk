@@ -21,4 +21,12 @@ class HotelRepository extends BaseRepository
     {
         return Hotel::class;
     }
+
+
+    public function getByNameWisata($nama,$idWisata)
+    {
+        return Hotel::Where('nama', 'like', '%'.$nama.'%')->
+                      Where('id_wisata',$idWisata)
+            ->get();
+    }
 }

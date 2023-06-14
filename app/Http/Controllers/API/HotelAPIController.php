@@ -105,4 +105,22 @@ class HotelAPIController extends AppBaseController
 
         return $this->sendSuccess('Hotel deleted successfully');
     }
+
+    public function getHotelByWisata($idWisata,Request $request)
+    {
+        $term = $request->input("term");
+
+        $resultByName = $this->hotelRepository->getByNameWisata($term,$idWisata);
+
+        $output = [];
+        foreach ($resultByName as $key => $value) {
+            $output[$key] = [
+              "id" => $value->id ,
+              "label" => $value->nama,
+              "value" => $value->nama
+            ];
+        }
+
+        return $output;
+    }
 }
