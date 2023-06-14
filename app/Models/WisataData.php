@@ -32,13 +32,13 @@ class WisataData extends Model
         'biaya' => 'nullable|numeric',
         'aktifitas' => 'nullable|string|max:65535',
         'kunjungan' => 'nullable|string|max:255',
-        'created_at' => 'required',
+        'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
 
     public function idWisata(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Wisatum::class, 'id_wisata');
+        return $this->belongsTo(\App\Models\Wisata::class, 'id_wisata');
     }
 }

@@ -27,7 +27,7 @@ class Hotel extends Model
 
     public function idWisata(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Wisatum::class, 'id_wisata');
+        return $this->belongsTo(\App\Models\Wisata::class, 'id_wisata');
     }
 
     public function hotelData(): \Illuminate\Database\Eloquent\Relations\HasMany

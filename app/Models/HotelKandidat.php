@@ -29,7 +29,7 @@ class HotelKandidat extends Model
         'fasilitas' => 'required|numeric',
         'kelas' => 'required|numeric',
         'jarak' => 'required|numeric',
-        'created_at' => 'required',
+        'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];

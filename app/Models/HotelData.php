@@ -29,7 +29,7 @@ class HotelData extends Model
         'fasilitas' => 'nullable|string|max:65535',
         'kelas' => 'nullable|numeric',
         'jarak' => 'nullable|numeric',
-        'created_at' => 'required',
+        'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];

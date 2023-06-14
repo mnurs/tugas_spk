@@ -26,7 +26,7 @@ class Bobot extends Model
         'attribut' => 'required|string|max:255',
         'is_benefit' => 'nullable',
         'kategori' => 'required|string',
-        'created_at' => 'required',
+        'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];

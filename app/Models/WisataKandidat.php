@@ -32,13 +32,13 @@ class WisataKandidat extends Model
         'biaya' => 'required|numeric',
         'aktifitas' => 'required|numeric',
         'kunjungan' => 'required|numeric',
-        'created_at' => 'required',
+        'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
 
     public function idWisata(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Wisatum::class, 'id_wisata');
+        return $this->belongsTo(\App\Models\Wisata::class, 'id_wisata');
     }
 }
