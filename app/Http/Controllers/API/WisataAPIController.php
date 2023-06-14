@@ -105,4 +105,23 @@ class WisataAPIController extends AppBaseController
 
         return $this->sendSuccess('Wisata deleted successfully');
     }
+
+
+    public function getWisata(Request $request)
+    {
+        $term = $request->input("term");
+
+        $resultByName = $this->wisataRepository->getByName($term);
+
+        $output = [];
+        foreach ($resultByName as $key => $value) {
+            $output[$key] = [
+              "id" => $value->id ,
+              "label" => $value->nama,
+              "value" => $value->nama
+            ];
+        }
+
+        return $output;
+    }
 }

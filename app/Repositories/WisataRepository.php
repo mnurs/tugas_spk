@@ -20,4 +20,11 @@ class WisataRepository extends BaseRepository
     {
         return Wisata::class;
     }
+
+    
+    public function getByName($nama)
+    {
+        return Wisata::Where('nama', 'like', '%'.$nama.'%')
+            ->get();
+    }
 }
