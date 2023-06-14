@@ -1,7 +1,9 @@
 <!-- Id Wisata Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('id_wisata', 'Id Wisata:') !!}
-    {!! Form::number('id_wisata', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('id_wisata', 'Wisata:') !!} 
+    <select id="id_wisata" class="form-control" name="id_wisata" required> 
+            <option value="@if(isset($wisataData->idWisata->id)){{$wisataData->idWisata->id}} @endif">@if(isset($wisataData->idWisata->nama)){{$wisataData->idWisata->nama}}@endif</option> 
+    </select>  
 </div>
 
 <!-- Fasilitas Field -->
@@ -33,3 +35,13 @@
     {!! Form::label('kunjungan', 'Kunjungan:') !!}
     {!! Form::text('kunjungan', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255, 'maxlength' => 255]) !!}
 </div>
+@push('third_party_scripts')
+    <script type="text/javascript" src="{{ URL::asset('js/helper.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/select2.min.js') }}">
+    </script> 
+    <script type="text/javascript"> 
+        $(document).ready(function(){    
+            selectCombobox("id_wisata","/api/autocomplete/wisata"); 
+        });
+    </script>
+@endpush
